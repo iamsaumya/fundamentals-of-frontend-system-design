@@ -4,20 +4,22 @@
     <meta charset="UTF-8">
     <title>Frontend System Design Fundamentals</title>
     <link rel="stylesheet" href="./index.css">
+    <template id="card-template">
+      <article class="card">
+        <h3 class="card__title"></h3>
+        <div class="card__body">
+          <div class='card__body__image'></div>
+          <section class='card__body__content'>
+          </section>
+        </div>
+      </article>
+    </template>
 </head>
 <body>
 <main id="container"></main>
 </body>
 <script>
     const container = document.getElementById('container');
-    const html = `<article class="card">
-    <h3 class="card__title"></h3>
-    <div class="card__body">
-      <div class='card__body__image'></div>
-      <section class='card__body__content'>
-      </section>
-    </div>
-  </article>`;
 
     /**
      * @param {string} title
@@ -27,13 +29,24 @@
      */
     function createCardComponent(title, body) {
         // @todo - Implement function
+        const template = document.getElementById("card-template");
+        const templateFragment  = template.content.cloneNode(true);
+        [titleEle,bodyEle] = templateFragment.querySelectorAll(".card__title, .card__body__content");
+        titleEle.textContent = title;
+        bodyEle.textContent = body;
+        return templateFragment;
     }
 
     const component = createCardComponent(
         "Frontend System Design: Fundamentals",
         "This is a random body text"
     );
+    const component1 = createCardComponent(
+        "Frontend S1ystem Design: Fundamentals",
+        "This is a random body text"
+    );
 
     container.appendChild(component);
+    container.appendChild(component1);
 </script>
 </html>
