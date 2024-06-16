@@ -71,6 +71,26 @@
      * 4. If width and height is more than 150px = unset the properties above
      * 5. All 4 boxes should use same observer
      */
+
+    const observer = new ResizeObserver((entries) => {
+        entries.forEach((entry) => {
+            if(entry.contentBoxSize){
+                const width  = entry.contentBoxSize[0].inlineSize;
+                const height = entry.contentBoxSize[0].blockSize;
+                if(width < 150 && height < 150){
+                    entry.target.style.borderRadius = "100%";
+                    entry.target.style.borderWidth = "4px";
+                }
+                else {
+                    entry.target.style.borderRadius ="unset";
+                    entry.target.style.borderWidth = "unset"
+                }
+            }
+        })
+    })
+
+    const allBoxes = document.querySelectorAll(".box")
+    allBoxes.forEach((a) => observer.observe(a))
 </script>
 </body>
 </html>
