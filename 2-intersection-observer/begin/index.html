@@ -55,14 +55,16 @@
             console.log("emtas", entry)
             if (entry.isIntersecting) {
                 const data = await db.getPage(page++)
+                const listFragment = new DocumentFragment()
                 const allElements = data.map((d) => createCardElement(d.title, d.body));
                 allElements.forEach(element => {
-                    list.appendChild(element)
+                    listFragment.appendChild(element)
                 });
+                list.appendChild(listFragment)
             }
         }, {
             root: document,
-            threshold: 0.5
+            threshold: 0.1
         })
 
         observer.observe(observerElement)
